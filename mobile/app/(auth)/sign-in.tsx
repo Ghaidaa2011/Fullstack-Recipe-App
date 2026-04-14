@@ -3,7 +3,7 @@ import { COLORS } from "@/constants/colors";
 import { useSignIn } from "@clerk/expo";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
+import { Href, useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Alert,
@@ -48,12 +48,7 @@ const SignInScreen = () => {
         await signIn.finalize({
           navigate: ({ decorateUrl }) => {
             const url = decorateUrl("/");
-
-            if (url.startsWith("http")) {
-              window.location.href = url;
-            } else {
-              router.replace(url as any);
-            }
+            router.replace(url as Href);
           },
         });
       } else {
