@@ -28,3 +28,9 @@ export interface Category {
   strCategoryThumb: string;
   strCategoryDescription: string;
 }
+export interface UICategory {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+};
