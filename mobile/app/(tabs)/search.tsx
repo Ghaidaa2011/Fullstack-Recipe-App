@@ -1,4 +1,5 @@
 import { searchStyles } from "@/assets/styles/search.styles";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import RecipeCard from "@/components/RecipeCard";
 import { COLORS } from "@/constants/colors";
 import useDebounce from "@/hooks/useDebounce";
@@ -75,7 +76,7 @@ const SearchScreen = () => {
     handleSearch();
   }, [debouncedValue, initialLoading]);
 
-  if (initialLoading) return <Text>Loading some data...</Text>;
+  if (initialLoading) return <LoadingSpinner message="Loading recipes..." />;
 
   return (
     <View style={searchStyles.container}>
@@ -119,7 +120,7 @@ const SearchScreen = () => {
 
         {loading ? (
           <View style={searchStyles.loadingContainer}>
-            <Text>Loading...</Text>
+            <LoadingSpinner message="Searching recipes..." size="small" />
           </View>
         ) : (
           <FlatList

@@ -6,7 +6,7 @@ import { Redirect, Tabs } from "expo-router";
 const TabsLayout = () => {
   // Protected Routes
   const { isSignedIn } = useAuth();
-  if (!isSignedIn) return <Redirect href={"./(auth)/sign-in"} />;
+  if (!isSignedIn) return <Redirect href={"/sign-in"} />;
   return (
     <Tabs
       screenOptions={{

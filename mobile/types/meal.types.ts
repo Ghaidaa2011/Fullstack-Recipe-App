@@ -11,16 +11,27 @@ export interface MealAPIResponse {
 }
 export interface Meal {
   id: string;
+  userId: string;
   title: string;
-  description: string;
+  description?: string;
   image: string;
   cookTime: string;
   servings: number;
-  category: string;
-  area: string;
-  ingredients: string[];
-  instructions: string[];
-  originalData: MealAPIResponse;
+  category?: string;
+  area?: string;
+  ingredients?: string[];
+  instructions?: string[];
+  originalData?: MealAPIResponse;
+}
+export interface FavoriteDB {
+  id: number;
+  userId: string;
+  recipeId: number;
+  title: string;
+  image: string;
+  cookTime: string;
+  servings: string;
+  createdAt: string;
 }
 export interface Category {
   idCategory: string;
@@ -34,3 +45,4 @@ export interface UICategory {
   image: string;
   description: string;
 };
+
