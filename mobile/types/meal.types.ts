@@ -11,12 +11,13 @@ export interface MealAPIResponse {
 }
 export interface Meal {
   id: string;
-  userId: string;
+  userId?: string;
   title: string;
   description?: string;
   image: string;
   cookTime: string;
   servings: number;
+  youtubeUrl?: string | null;
   category?: string;
   area?: string;
   ingredients?: string[];
