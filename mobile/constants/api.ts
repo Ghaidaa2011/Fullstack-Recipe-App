@@ -1,1 +1,1 @@
-export const API_URL = "http://localhost:5001/api";
+export const API_URL = "https://e-commerce-with-strapi-and-material-ui.onrender.com/api";

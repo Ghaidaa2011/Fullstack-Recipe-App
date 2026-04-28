@@ -7,7 +7,8 @@ import { COLORS } from "@/constants/colors";
 import { FavoriteDB, Meal } from "@/types/meal.types";
 import { useClerk, useUser } from "@clerk/expo";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import {
   Alert,
   FlatList,
@@ -22,27 +23,36 @@ const FavoritesScreen = () => {
   const { user } = useUser();
   const [favoriteRecipes, setFavoriteRecipes] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const loadFavorites = async () => {
-      try {
-        const response = await fetch(`${API_URL}/favorites/${user?.id}`);
-        if (!response.ok) throw new Error("Failed to fetch favorites");
-        const favorites: FavoriteDB[] = await response.json();
-        const transformedFavorites = favorites.map((favorite) => ({
-          ...favorite,
-          id: favorite.recipeId.toString(),
-          servings: Number(favorite.servings) || 0,
-        }));
-        setFavoriteRecipes(transformedFavorites);
-      } catch (error) {
-        console.error("Error fetching favorites:", error);
-        Alert.alert("Error", "Failed to load your favorite recipes.");
-      } finally {
-        setLoading(false);
+  useFocusEffect(
+    useCallback(() => {
+      const loadFavorites = async () => {
+        try {
+          setLoading(true); // مهم
+          const response = await fetch(`${API_URL}/favorites/${user?.id}`);
+          if (!response.ok) throw new Error("Failed to fetch favorites");
+
+          const favorites: FavoriteDB[] = await response.json();
+
+          const transformedFavorites = favorites.map((favorite) => ({
+            ...favorite,
+            id: favorite.recipeId.toString(),
+            servings: Number(favorite.servings) || 0,
+          }));
+
+          setFavoriteRecipes(transformedFavorites);
+        } catch (error) {
+          console.error("Error fetching favorites:", error);
+          Alert.alert("Error", "Failed to load your favorite recipes.");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      if (user?.id) {
+        loadFavorites();
       }
-    };
-    loadFavorites();
-  }, [user?.id]);
+    }, [user?.id]),
+  );
   const handleSignOut = () => {
     Alert.alert("Logout", "Are you sure you want to logout?", [
       { text: "Cancel", style: "cancel" },

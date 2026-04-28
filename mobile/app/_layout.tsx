@@ -1,7 +1,7 @@
 import SafeScreen from "@/components/SafeScreen";
 import { ClerkProvider } from "@clerk/expo";
 import { tokenCache } from "@clerk/expo/token-cache";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
@@ -16,7 +16,7 @@ export default function RootLayout() {
     <Provider publishableKey={publishableKey} tokenCache={tokenCache}>
       <SafeScreen>
         <StatusBar barStyle="dark-content" />
-        <Slot />
+        <Stack screenOptions={{ headerShown: false }} />
       </SafeScreen>
     </Provider>
   );

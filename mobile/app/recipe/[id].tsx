@@ -133,7 +133,9 @@ const RecipeDetailScreen = () => {
             <TouchableOpacity
               style={[
                 recipeDetailStyles.floatingButton,
-                { backgroundColor: isSaving ? COLORS.white : COLORS.primary },
+                {
+                  backgroundColor: isSaving ? COLORS.textLight : COLORS.primary,
+                },
               ]}
               onPress={handleToggleSave}
               disabled={isSaving}
